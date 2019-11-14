@@ -8,4 +8,4 @@ Input signal
 
 Output filtered signal (Using ZPK IIR Filter)
 
-![Output Signal](images/iir_filtered_raw_extended.png)
+![Output Signal](images/iir_filtered_raw_extended_truncated.png)
