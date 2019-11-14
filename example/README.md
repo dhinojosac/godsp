@@ -6,6 +6,6 @@ Input signal
 
 ![Input Signal](images/input.png)
 
-Output filtered signal
+Output filtered signal (Using ZPK IIR Filter)
 
 ![Output Signal](images/iir_filtered_raw_extended.png)
