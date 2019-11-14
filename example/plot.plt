@@ -1,2 +1,2 @@
-plot "out.dat" with linespoints ls 1
+plot "input.dat" using 0:1 with lines
 
