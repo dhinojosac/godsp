@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 
 	dsp "github.com/dhinojosac/godsp"
+	"github.com/mjibson/go-dsp/spectral"
 )
 
-var a []float64 = []float64{1.0, 2.0}
-var b []float64 = []float64{2.0, 2.0}
+const FREQ_SAMPLE = 75 // Sampling frequency in Hz
 
 func check(e error) {
 	if e != nil {
@@ -20,6 +21,8 @@ func check(e error) {
 func main() {
 	fmt.Println("godsp example")
 	fout, err := os.Create("out.dat")
+	check(err)
+	psd_out, err := os.Create("psd.dat")
 	check(err)
 
 	var input []float64
@@ -51,5 +54,16 @@ func main() {
 		//fmt.Fprintf(fout, "%v %v\n", input[i], output[i])
 	}
 	fmt.Printf("[!] Filtered!\n")
+
+	pwelch_options := &spectral.PwelchOptions{}
+	pwelch_options.NFFT = 1024
+	Pxx, freqs := spectral.Pwelch(output, FREQ_SAMPLE, pwelch_options)
+	iPxx, _ := spectral.Pwelch(input, FREQ_SAMPLE, pwelch_options)
+	for i, freq := range freqs {
+		//fmt.Printf("f:%f  p:%f \n", freq, Pxx[i])
+		Pxx_scaled := 10 * math.Log10(Pxx[i])   //pass to dB
+		iPxx_scaled := 10 * math.Log10(iPxx[i]) //pass to dB
+		fmt.Fprintf(psd_out, "%f, %f, %f\n", freq, Pxx_scaled, iPxx_scaled)
+	}
 
 }
