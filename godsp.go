@@ -146,35 +146,16 @@ func IIR_filter_SOS(input []float64) ([]float64, error) {
 
 	var state [8][2]float64
 
-	/*
-		for i, _ := range state {
-			state[i][0] = 0
-			state[i][1] = 0
-		}
-	*/
-
 	// Fill output with zeros
 	for i, _ := range output {
 		output[i] = 0
 	}
-	/*
-		//TEST
-		fmt.Printf("B_Coef[0][0]: %v\n", B_Coef[0][0])
-		fmt.Printf("B_Coef[0][1]: %v\n", B_Coef[0][1])
-
-		fmt.Printf("B_Coef[1][0]: %v\n", B_Coef[1][0])
-		fmt.Printf("B_Coef[1][1]: %v\n", B_Coef[1][1])
-
-		fmt.Printf("B_Coef[1][0]: %v\n", B_Coef[2][0])
-		fmt.Printf("B_Coef[1][1]: %v\n", B_Coef[2][1])
-	*/
 
 	for m, _ := range input {
 		Xm := input[m] * G
 		Ym := 0.0
 
 		for i := 0; i < Ns; i++ {
-			//fmt.Printf("i: %v\n", i)
 			Ym = Xm + state[i][0]
 			state[i][0] = B_Coef[i][0]*Xm - A_Coef[i][0]*Ym + state[i][1]
 			state[i][1] = B_Coef[i][1]*Xm - A_Coef[i][1]*Ym
@@ -191,49 +172,3 @@ func IIR_filter_SOS(input []float64) ([]float64, error) {
 
 	return output, nil
 }
-
-/*
-func IIR_filter(numCoef, denCoef, input []float64) ([]float64, error) {
-	output := make([]float64, len(input)+len(numCoef))
-	fmt.Printf("Len in:%v\nLen out:%v\n", len(input), len(output))
-	fmt.Printf("Len B coef:%v\nLen A coef:%v\n", len(numCoef), len(denCoef))
-
-	for i, _ := range output {
-		output[i] = 0
-	}
-
-	for i, _ := range input {
-
-		if i >= len(numCoef) {
-			bcc := 0.0
-			acc := 0.0
-
-			// sum of inputs and b coefficients
-			for b := 0; b < len(numCoef); b++ {
-				bcc += input[i-b] * numCoef[b]
-				//fmt.Printf("X[%v]*b[%v]\n", i-b, b)
-			}
-
-			// sum of outputs and a coefficients
-			for a := 1; a < len(denCoef); a++ {
-				acc += output[i-a] * denCoef[a]
-				//fmt.Printf("Y[%v]*a[%v]\n", i-a, a)
-			}
-			fmt.Printf("i:%v  bcc:%v   acc:%v\n", i, bcc, acc)
-
-			// output y[n]
-			output[i] = bcc - acc
-
-		}
-
-		//fmt.Printf("out[%d]: %v\n", i, output[i])
-		//fmt.Printf("%v\n", output[i])
-	}
-
-	if len(numCoef) == 0 && len(denCoef) == 0 {
-		return nil, errors.New("Test error")
-	}
-
-	return output, nil
-}
-*/
