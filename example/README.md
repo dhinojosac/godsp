@@ -10,3 +10,7 @@ Output filtered signal (Using ZPK IIR Filter)
 
 ![Output Signal](images/iir_filtered_raw_extended_truncated.png)
 
+Power Spectral Density using Welch method
+
+![PSD comparison](images/input_output_psd_welch.png)
+
