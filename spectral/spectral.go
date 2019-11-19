@@ -17,8 +17,6 @@
 // Package spectral provides spectral analysis functions for digital signal processing.
 package spectral
 
-import "fmt"
-
 // Segment x segmented into segments of length size with specified noverlap.
 // Number of segments returned is (len(x) - size) / (size - noverlap) + 1.
 func Segment(x []float64, size, noverlap int) [][]float64 {
@@ -42,7 +40,7 @@ func Segment(x []float64, size, noverlap int) [][]float64 {
 			r[i][j] = x[offset+j]
 		}
 
-		fmt.Printf("offset:%v  strinde:%v\n", offset, stride) //debug
+		//fmt.Printf("offset:%v  strinde:%v\n", offset, stride) //debug
 		offset += stride
 
 	}

@@ -17,7 +17,6 @@
 package fft
 
 import (
-	"fmt"
 	"math"
 	"runtime"
 	"sync"
@@ -42,7 +41,7 @@ func getRadix2Factors(input_len int) []complex128 {
 
 	if hasRadix2Factors(input_len) {
 		defer radix2Lock.RUnlock()
-		fmt.Printf("retunr X\n")
+		//fmt.Printf("retunr X\n")
 		return radix2Factors[input_len]
 	}
 
@@ -52,7 +51,7 @@ func getRadix2Factors(input_len int) []complex128 {
 
 	if !hasRadix2Factors(input_len) {
 		for i, p := 8, 4; i <= input_len; i, p = i<<1, i {
-			fmt.Printf("i:%v, p:%v\n", i, p)
+			//fmt.Printf("i:%v, p:%v\n", i, p)
 			if radix2Factors[i] == nil {
 				radix2Factors[i] = make([]complex128, i)
 

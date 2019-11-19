@@ -6,6 +6,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"os"
 
@@ -15,10 +16,7 @@ import (
 const START_COMMAND = 9.910
 const FINISH_COMMAND = 9.911
 
-const TIME_SAMPLE = 10 // Duration of each batch to process in seconds
-const FREQ_SAMPLE = 75 // Sampling frequency in Hz
-
-const data_arr_len = TIME_SAMPLE * FREQ_SAMPLE // Max of data in buffer
+const FREQ_SAMPLE = 60 // Sampling frequency in Hz
 
 func check(e error) {
 	if e != nil {
@@ -41,7 +39,7 @@ func main() {
 		for {
 			fmt.Scanf("%f\n", &temp)
 			if temp == START_COMMAND {
-				fmt.Printf("Start PSD\n")
+				log.Printf("Start PSD\n")
 				break
 			}
 		}
@@ -50,7 +48,7 @@ func main() {
 		for {
 			fmt.Scanf("%f\n", &temp)
 			if temp == FINISH_COMMAND {
-				fmt.Printf("Finish PSD\n")
+				log.Printf("Finish PSD\n")
 				break
 			}
 			data_arr = append(data_arr, temp)
@@ -69,7 +67,7 @@ func main() {
 		// To save the output to a file
 		pwelch_options := &spectral.PwelchOptions{}
 		pwelch_options.NFFT = (1024)
-		Pxx, freqs := spectral.Pwelch_stop(data_arr, FREQ_SAMPLE, pwelch_options, 30.0)
+		Pxx, freqs := spectral.Pwelch_stop(data_arr, FREQ_SAMPLE, pwelch_options, 5.0)
 
 		//fo, err := os.Create("pwelch_output.dat")
 		//check(err)

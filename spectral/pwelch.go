@@ -191,7 +191,7 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 
 	segs := Segment(x, nfft, noverlap)
 
-	fmt.Printf("Noverlap: %v\n", noverlap)
+	fmt.Printf("Noverlap: %v\n", noverlap)                                                //debug
 	fmt.Printf("NFFT: %v\n", nfft)                                                        //debug
 	fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
 
@@ -229,27 +229,28 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 			//fmt.Printf("Pxx[%d]: %v\n", j, Pxx[j])
 		}
 	}
-	fmt.Printf("Pass 1\n")
+	
+
 	w := wf(nfft)
 	fmt.Printf("Len window: %v\n", len(w))
+
 	var norm float64
 	for _, x := range w {
 		norm += math.Pow(x, 2)
 	}
 
-	fmt.Printf("Pass 2\n")
+
 
 	if enable_scaling {
 		norm *= Fs
 	}
 
-	fmt.Printf("Pass 3\n")
 
 	for i := range Pxx {
 		Pxx[i] /= norm
 	}
 
-	fmt.Printf("Pass 4\n")
+
 
 	return
 }

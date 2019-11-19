@@ -18,8 +18,6 @@
 package fft
 
 import (
-	"fmt"
-
 	"github.com/dhinojosac/godsp/dsputils"
 )
 
@@ -82,10 +80,10 @@ func FFT(x []complex128) []complex128 {
 	}
 
 	if dsputils.IsPowerOf2(lx) {
-		fmt.Printf("radix2FFT\n")
+		//fmt.Printf("radix2FFT\n")
 		return radix2FFT(x)
 	}
-	fmt.Printf("bluesteinFFT\n")
+	//fmt.Printf("bluesteinFFT\n")
 	return bluesteinFFT(x)
 }
 
