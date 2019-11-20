@@ -1,4 +1,4 @@
-package godsp
+package godspdos
 
 import (
 	"testing"
