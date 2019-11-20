@@ -270,12 +270,13 @@ func GetCoeffsAndInitialConditions(sos [][]float64, g float64, ord int, npts int
 	nfact := 3 * ord
 
 	if npts <= nfact {
-		return "ERROR input too short"
+		return nil,nil,nil,nil,nil,errors.New("ERROR input too short")
 	}
 
 	var zi [2][L]float64
 	var rhs [2][1]float64
 	var aA [2][2]float64
+
 	for i:=0; i<L; i++{
 		rhs  = (b(2:3,i) - b(1,ii)*a(2:3,i)); //fila 2 y 3, columna i  (2x1)
     	zi(:,i) = ( eye(2) - [-a(2:3,i),[1;0]] ) \ rhs; // eye matriz identidad,  concatenar vectores 2x1 para armar una matriz 2x2
