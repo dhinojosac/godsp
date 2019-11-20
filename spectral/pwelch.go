@@ -125,7 +125,7 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 			}
 
 			Pxx[j] += d
-			fmt.Printf("Pxx[%d]: %v\n", j, Pxx[j])
+			//fmt.Printf("Pxx[%d]: %v\n", j, Pxx[j])
 		}
 	}
 
@@ -147,13 +147,14 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 	coef := Fs / float64(pad)
 	for i := range freqs {
 		freqs[i] = float64(i) * coef
-		fmt.Printf("i:%v   freq:%v\n", i, freqs[i])
+		//fmt.Printf("i:%v   freq:%v\n", i, freqs[i])
 	}
 
 	return
 }
 
 func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx, freqs []float64) {
+	fmt.Printf("\n** PWELCH STOP **----------------\n")
 	if len(x) == 0 {
 		return []float64{}, []float64{}
 	}
@@ -229,7 +230,6 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 			//fmt.Printf("Pxx[%d]: %v\n", j, Pxx[j])
 		}
 	}
-	
 
 	w := wf(nfft)
 	fmt.Printf("Len window: %v\n", len(w))
@@ -239,18 +239,13 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 		norm += math.Pow(x, 2)
 	}
 
-
-
 	if enable_scaling {
 		norm *= Fs
 	}
 
-
 	for i := range Pxx {
 		Pxx[i] /= norm
 	}
-
-
 
 	return
 }
