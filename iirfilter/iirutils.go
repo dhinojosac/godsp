@@ -2,7 +2,6 @@ package iirfilter
 
 import (
 	"errors"
-	"log"
 )
 
 func CramerSolve(a, b, c, d, e, f float64) ([2]float64, error) {
@@ -14,7 +13,7 @@ func CramerSolve(a, b, c, d, e, f float64) ([2]float64, error) {
 	x[0] = (e*d - b*f) / det
 	x[1] = (e*d - b*f) / det
 
-	log.Printf("Solve\nx1:%v\nx2:%v\n", x[0], x[1])
+	//log.Printf("Solve\nx1:%v\nx2:%v\n", x[0], x[1])
 	return x, nil
 
 }
