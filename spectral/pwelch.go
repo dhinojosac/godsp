@@ -18,7 +18,6 @@ package spectral
 
 import (
 	"errors"
-	"fmt"
 	"math"
 	"math/cmplx"
 
@@ -203,7 +202,7 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) ([]fl
 	for i := range freqs {
 		freqs[i] = float64(i) * coef
 		if freqs[i] > fStop {
-			fmt.Printf("iStop:%v\n", i)
+			//fmt.Printf("iStop:%v\n", i)
 			iStop = i
 			break
 		}

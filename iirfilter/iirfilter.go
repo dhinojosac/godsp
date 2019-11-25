@@ -2,13 +2,12 @@ package iirfilter
 
 import (
 	"errors"
-	"fmt"
 	"log"
 )
 
 func Filfilt(sos [8][6]float64, g float64, ord int, input []float64) ([]float64, error) {
 	//fmt.Println("** Filfilt")
-	fmt.Printf("** sos F %v\n", sos[0][0])
+	//fmt.Printf("** sos F %v\n", sos[0][0])
 	npts := len(input)
 	b, a, zi, nfact, L, err := GetCoeffsAndInitialConditions(sos, g, ord, npts)
 	if err != nil {
