@@ -17,6 +17,8 @@
 package spectral
 
 import (
+	"errors"
+	"fmt"
 	"math"
 	"math/cmplx"
 
@@ -152,10 +154,10 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 	return
 }
 
-func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx, freqs []float64) {
+func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) ([]float64, []float64, error) {
 	//fmt.Printf("\n** PWELCH STOP **----------------\n")
 	if len(x) == 0 {
-		return []float64{}, []float64{}
+		return []float64{}, []float64{}, errors.New("Invalid or empty input")
 	}
 	//fmt.Printf("len input:%v\n", len(x))
 	//fmt.Printf("Fs:%v\n", Fs)
@@ -196,19 +198,19 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 	//fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
 
 	var iStop int
-	freqs = make([]float64, lp)
+	freqs := make([]float64, lp)
 	coef := Fs / float64(pad)
 	for i := range freqs {
 		freqs[i] = float64(i) * coef
 		if freqs[i] > fStop {
-			//fmt.Printf("iStop:%v\n", i)
+			fmt.Printf("iStop:%v\n", i)
 			iStop = i
 			break
 		}
 
 	}
 
-	Pxx = make([]float64, iStop)
+	Pxx := make([]float64, iStop)
 	for _, x := range segs {
 		x = dsputils.ZeroPadF(x, pad)
 		window.Apply(x, wf)
@@ -246,5 +248,5 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 		Pxx[i] /= norm
 	}
 
-	return
+	return Pxx, freqs, nil
 }

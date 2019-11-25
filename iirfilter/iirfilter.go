@@ -2,11 +2,13 @@ package iirfilter
 
 import (
 	"errors"
+	"fmt"
 	"log"
 )
 
-func Filfilt(sos [][]float64, g float64, ord int, input []float64) ([]float64, error) {
+func Filfilt(sos [8][6]float64, g float64, ord int, input []float64) ([]float64, error) {
 	//fmt.Println("** Filfilt")
+	fmt.Printf("** sos F %v\n", sos[0][0])
 	npts := len(input)
 	b, a, zi, nfact, L, err := GetCoeffsAndInitialConditions(sos, g, ord, npts)
 	if err != nil {
@@ -22,7 +24,7 @@ func Filfilt(sos [][]float64, g float64, ord int, input []float64) ([]float64, e
 }
 
 //Not implemented
-func GetCoeffsAndInitialConditions(sos [][]float64, g float64, ord int, npts int) ([][]float64, [][]float64, [][]float64, int, int, error) {
+func GetCoeffsAndInitialConditions(sos [8][6]float64, g float64, ord int, npts int) ([][]float64, [][]float64, [][]float64, int, int, error) {
 	//fmt.Println("** GetCoeffsAndInitialConditions")
 	L := len(sos) //down
 
