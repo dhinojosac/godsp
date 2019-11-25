@@ -17,7 +17,6 @@
 package spectral
 
 import (
-	"fmt"
 	"math"
 	"math/cmplx"
 
@@ -76,8 +75,8 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 	if len(x) == 0 {
 		return []float64{}, []float64{}
 	}
-	fmt.Printf("len input:%v\n", len(x))
-	fmt.Printf("Fs:%v\n", Fs)
+	//fmt.Printf("len input:%v\n", len(x))
+	//fmt.Printf("Fs:%v\n", Fs)
 
 	nfft := o.NFFT
 	pad := o.Pad
@@ -107,8 +106,8 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 	noverlap = nfft / 2 //test
 	segs := Segment(x, nfft, noverlap)
 
-	fmt.Printf("NFFT: %v\n", nfft)                                                        //debug
-	fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
+	//fmt.Printf("NFFT: %v\n", nfft)                                                        //debug
+	//fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
 
 	Pxx = make([]float64, lp)
 	for _, x := range segs {
@@ -154,12 +153,12 @@ func Pwelch(x []float64, Fs float64, o *PwelchOptions) (Pxx, freqs []float64) {
 }
 
 func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx, freqs []float64) {
-	fmt.Printf("\n** PWELCH STOP **----------------\n")
+	//fmt.Printf("\n** PWELCH STOP **----------------\n")
 	if len(x) == 0 {
 		return []float64{}, []float64{}
 	}
-	fmt.Printf("len input:%v\n", len(x))
-	fmt.Printf("Fs:%v\n", Fs)
+	//fmt.Printf("len input:%v\n", len(x))
+	//fmt.Printf("Fs:%v\n", Fs)
 
 	nfft := o.NFFT
 	pad := o.Pad
@@ -192,9 +191,9 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 
 	segs := Segment(x, nfft, noverlap)
 
-	fmt.Printf("Noverlap: %v\n", noverlap)                                                //debug
-	fmt.Printf("NFFT: %v\n", nfft)                                                        //debug
-	fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
+	//fmt.Printf("Noverlap: %v\n", noverlap)                                                //debug
+	//fmt.Printf("NFFT: %v\n", nfft)                                                        //debug
+	//fmt.Printf("Num Segment: %v  lenX:%v  lenseg0:%v\n", len(segs), len(x), len(segs[0])) //debug
 
 	var iStop int
 	freqs = make([]float64, lp)
@@ -202,7 +201,7 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 	for i := range freqs {
 		freqs[i] = float64(i) * coef
 		if freqs[i] > fStop {
-			fmt.Printf("iStop:%v\n", i)
+			//fmt.Printf("iStop:%v\n", i)
 			iStop = i
 			break
 		}
@@ -232,7 +231,7 @@ func Pwelch_stop(x []float64, Fs float64, o *PwelchOptions, fStop float64) (Pxx,
 	}
 
 	w := wf(nfft)
-	fmt.Printf("Len window: %v\n", len(w))
+	//fmt.Printf("Len window: %v\n", len(w))
 
 	var norm float64
 	for _, x := range w {
